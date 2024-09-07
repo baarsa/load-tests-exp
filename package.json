@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node primary.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "load-test": "artillery run tests/demo_api_load.yml",
     "load-test-report": "npm run load-test -- --output tests/report.json",
