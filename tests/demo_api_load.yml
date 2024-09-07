@@ -1,0 +1,27 @@
+config:
+  target: http://localhost:3000
+  phases:
+    - duration: 20
+      arrivalRate: 5
+      name: Startup phase
+    - duration: 5
+      arrivalRate: 20
+      name: Peak phase
+    - duration: 10
+      arrivalRate: 2
+      name: Slowdown phase
+  plugins:
+    ensure: {}
+  ensure:
+    thresholds:
+      - http.response_time.max: 1000
+      - 'http.response_time.p99': 250
+      - 'http.response_time.p95': 100
+    conditions:
+      - expression: "http.codes.200 == http.requests"
+scenarios:
+  - flow:
+      - get:
+          url: "/work"
+      - post:
+          url: "/work2"
