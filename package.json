@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node primary.js",
+    "start": "npx tsx primary.ts",
     "start-pm": "pm2 start index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "load-test": "artillery run tests/demo_api_load.yml",
@@ -17,6 +17,12 @@
   "type": "module",
   "dependencies": {
     "express": "^4.19.2",
-    "pm2": "^5.4.2"
+    "moving-average": "^1.0.1",
+    "pm2": "^5.4.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.4"
   }
 }
