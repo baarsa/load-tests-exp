@@ -21,7 +21,7 @@ jobs:
         run: npm run build
 
       - name: Start the API
-        run: npm run start
+        run: nohup npm run start &
 
       - name: Wait for the API
         uses: iFaxity/wait-on-action@v1.1.0

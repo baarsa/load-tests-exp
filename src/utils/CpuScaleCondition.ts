@@ -19,12 +19,9 @@ export class CpuScaleCondition implements ScaleCondition {
                 // @ts-ignore
                 total += cpu.times[type];
                 // @ts-ignore
-                //console.log(`type: ${type}, time: ${cpu.times[type]}`);
             }
             idle += cpu.times.idle;
         });
-        console.log(`cpu acc: ${1 - idle / total}`);
-        console.log(`cpu: ${100 - Math.round(100 * idle / total)}`);
         return 100 - Math.round(100 * idle / total);
     }
 
