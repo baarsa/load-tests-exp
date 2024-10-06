@@ -16,7 +16,9 @@ app.get("/work", (req, res) => {
         total++;
     }
     const diff = process.hrtime(start);
-    process.send(`${getMs(diff)}`);
+    if (typeof process.send === "function") {
+        process.send(`${getMs(diff)}`);
+    }
     res.send(`The result of the CPU intensive task is ${total}\n`);
 });
 
