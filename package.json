@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/primary.js",
+    "start-single": "node dist/index.js",
     "autocannon": "autocannon http://localhost:3000",
     "start-dev": "npx tsx src/primary.ts",
     "start-pm": "pm2 start src/index.js",

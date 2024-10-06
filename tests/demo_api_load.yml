@@ -23,5 +23,3 @@ scenarios:
   - flow:
       - get:
           url: "/work"
-      - post:
-          url: "/work2"
