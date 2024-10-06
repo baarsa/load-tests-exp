@@ -31,9 +31,38 @@ jobs:
           resource: http://localhost:3000/work
 
       - name: Execute load tests
-        run: npx artillery run tests/demo_api_load.yml
+        run: npm run load-test  -- --output tests/report-single.json
 
       - name: Kill API
         run: |
           kill $(cat process.pid)
           rm process.pid
+
+      - name: Start the API as a cluster
+        run: |
+          nohup npm run start-cluster > output.log 2>&1 &
+          echo $! > process.pid
+
+      - name: Wait for the API
+        uses: iFaxity/wait-on-action@v1.1.0
+        with:
+          resource: http://localhost:3000/work
+
+      - name: Execute load tests
+        run: npm run load-test  -- --output tests/report-cluster.json
+
+      - name: Kill API
+        run: |
+          kill $(cat process.pid)
+          rm process.pid
+
+      - name: Start the API with pm2
+        run: npm run start-pm
+
+      - name: Wait for the API
+        uses: iFaxity/wait-on-action@v1.1.0
+        with:
+          resource: http://localhost:3000/work
+
+      - name: Execute load tests
+        run: npm run load-test  -- --output tests/report-pm.json

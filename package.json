@@ -5,14 +5,13 @@
   "main": "src/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/primary.js",
     "start-single": "node dist/index.js",
+    "start-cluster": "node dist/primary.js",
+    "start-pm": "pm2 start src/index.js",
     "autocannon": "autocannon http://localhost:3000",
     "start-dev": "npx tsx src/primary.ts",
-    "start-pm": "pm2 start src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "load-test": "artillery run tests/demo_api_load.yml",
-    "load-test-report": "npm run load-test -- --output tests/report.json",
     "load-test-html": "artillery report tests/report.json --output tests/report.html"
   },
   "keywords": [],
