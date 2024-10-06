@@ -21,10 +21,9 @@ jobs:
         run: npm run build
 
       - name: Start the API as a single worker
-        run: nohup npm run start-single &
-
-      - name: Save PID
-        run: echo $! > save_pid.txt
+        run: |
+          nohup npm run start-single > output.log 2>&1 &
+          echo $! > process.pid
 
       - name: Wait for the API
         uses: iFaxity/wait-on-action@v1.1.0
@@ -35,4 +34,6 @@ jobs:
         run: npx artillery run tests/demo_api_load.yml
 
       - name: Kill API
-        run: kill -9 `cat save_pid.txt`
+        run: |
+          kill $(cat process.pid)
+          rm process.pid
