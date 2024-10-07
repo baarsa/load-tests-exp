@@ -1,0 +1,71 @@
+name: benchmark-compare.yml
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  benchmark-compare:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Start the API as a single worker
+        run: |
+          nohup npm run start-single > output.log 2>&1 &
+          echo $! > process.pid
+
+      - name: Wait for the API
+        uses: iFaxity/wait-on-action@v1.1.0
+        with:
+          resource: http://localhost:3000/work
+
+      - name: Execute benchmark
+        run: npm run --silent autocannon  -- --json > benchmark-single.json
+
+      - name: Kill API
+        run: |
+          kill $(cat process.pid)
+          rm process.pid
+
+      - name: Start the API as a cluster
+        run: |
+          nohup npm run start-cluster > output.log 2>&1 &
+          echo $! > process.pid
+
+      - name: Wait for the API
+        uses: iFaxity/wait-on-action@v1.1.0
+        with:
+          resource: http://localhost:3000/work
+
+      - name: Execute benchmark
+        run: npm run --silent autocannon  -- --json > benchmark-cluster.json
+
+      - name: Kill API
+        run: |
+          kill $(cat process.pid)
+          rm process.pid
+
+      - name: Start the API with pm2
+        run: npm run start-pm
+
+      - name: Wait for the API
+        uses: iFaxity/wait-on-action@v1.1.0
+        with:
+          resource: http://localhost:3000/work
+
+      - name: Execute benchmark
+        run: npm run --silent autocannon  -- --json > benchmark-pm.json
+
+      - name: Print comparison table
+        run: npm run benchmark-comparison

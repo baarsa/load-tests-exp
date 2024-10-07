@@ -12,7 +12,8 @@
     "start-dev": "npx tsx src/primary.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "load-test": "artillery run tests/demo_api_load.yml",
-    "load-tests-comparison": "node print-load-test-comparison.js"
+    "load-tests-comparison": "node print-load-test-comparison.js",
+    "benchmark-comparison": "node print-benchmark-comparison.js"
   },
   "keywords": [],
   "author": "",

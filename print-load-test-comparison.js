@@ -13,7 +13,7 @@ table.push(
         'Single': [singleTimes.min, singleTimes.max, singleTimes.median, singleTimes.p99],
     },
     {
-        'Cluster': [singleTimes.min, clusterTimes.max, clusterTimes.median, clusterTimes.p99],
+        'Cluster': [clusterTimes.min, clusterTimes.max, clusterTimes.median, clusterTimes.p99],
     },
     {
         'PM2': [pmTimes.min, pmTimes.max, pmTimes.median, pmTimes.p99],
