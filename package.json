@@ -12,7 +12,7 @@
     "start-dev": "npx tsx src/primary.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "load-test": "artillery run tests/demo_api_load.yml",
-    "load-test-html": "artillery report tests/report.json --output tests/report.html"
+    "load-tests-comparison": "node print-load-test-comparison.js"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
   "dependencies": {
     "artillery": "2.0.20",
     "autocannon": "^7.15.0",
+    "cli-table3": "^0.6.5",
     "express": "^4.19.2",
     "moving-average": "^1.0.1",
     "pm2": "^5.4.2",

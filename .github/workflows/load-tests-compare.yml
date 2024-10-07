@@ -66,3 +66,6 @@ jobs:
 
       - name: Execute load tests
         run: npm run load-test  -- --output tests/report-pm.json
+
+      - name: Print comparison table
+        run: npm run load-tests-comparison
